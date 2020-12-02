@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('create_template') }}">Create Template</a>
+        <a href="{{ url_for('create_workout') }}">Create Workout</a>
+        <a href="{{ url_for('edit_workout') }}">Edit Workout</a>
+        <a href="{{ url_for('display_data') }}">Display Data</a>
+    </div>
+    <div id="header">{% block header %}{% endblock %}</div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">{% block footer %}{% endblock %}</div>
+</body>
+</html>

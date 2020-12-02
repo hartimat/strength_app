@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    <script type="text/javascript" src = "{{ url_for('static', filename='hello.js') }}"></script>
-</head>
-<body>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block header %}<h1>Index Page Title</h1>{% endblock %}
+{% block content %}<h3>Index page content</h3>{% endblock %}
+{% block footer %}<h5>Index Page Footer</h5>{% endblock %}
