@@ -1,8 +1,9 @@
 class Exercise:
-    def __init__(self, weight, sets, reps, rest_time, exercise_time, notes):
-        self.weight = weight
+    def __init__(self, name, date, sets, reps, weight, rest_time, notes):
+        self.name = name
+        self.date = date
         self.sets = sets
         self.reps = reps
+        self.weight = weight
         self.rest_time = rest_time
-        self.exercise_time = exercise_time
         self.notes = notes
