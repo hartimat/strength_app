@@ -1,3 +1,7 @@
+# TODO
+# Finish tutorial, start pull request
+
+
 import os
 
 from flask import Flask
@@ -28,5 +32,8 @@ def create_app(test_config=None):
     @app.route('/')
     def hello():
         return 'Hello, World!'
+
+    from . import db    # register db initialization function with the app
+    db.init_app(app)
 
     return app
