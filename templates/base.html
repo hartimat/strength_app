@@ -17,11 +17,7 @@
             <li><a href="{{ url_for('auth.register') }}">Register</a>
             <li><a href="{{ url_for('auth.login') }}">Log In</a>
         {% endif %}
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('create_template') }}">Create Template</a></li>
-            <li><a href="{{ url_for('create_workout') }}">Create Workout</a></li>
-            <li><a href="{{ url_for('edit_workout') }}">Edit Workout</a></li>
-            <li><a href="{{ url_for('display_data') }}">Display Data</a></li>
+            <li><a href="{{ url_for('core.index') }}">Home</a></li>
         </ul>
     </nav>
     <section class="content">

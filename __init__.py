@@ -1,9 +1,9 @@
 # TODO
-# Get framework for each app page setup (i.e. get blueprints working)
-# Load excel data into DB
+# Load excel data into DB, connect to application
 # Create exercise, workout classes that work with data in the DB
-
-# Finish tutorial, start pull request in git to merge with master / understand process
+# Create pages for the app (create exercises, create workouts, load past workouts, progress dashboard)
+# CSS / formatting (bootstrap?)
+# Pull request in git to understand the process
 
 
 import os
@@ -12,8 +12,10 @@ from flask import Flask
 
 
 def create_app(test_config=None):
-    # create and configure app
+    # Create application
     app = Flask(__name__, instance_relative_config=True)
+
+    # Configure application
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flask.sqlite')
@@ -26,19 +28,20 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
+    # Ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
 
-    from . import db    # register db initialization function with the app
+    # Initialize database
+    from . import db    # register db initialization function with the core
     db.init_app(app)
 
-    from views import auth
-    app.register_blueprint(auth.bp)
-
-    from . import views
-    app.register_blueprint(views.bp)
+    # Register blueprints
+    from .views.auth import auth
+    app.register_blueprint(auth)
+    from .views.core import core
+    app.register_blueprint(core)
 
     return app
