@@ -1,5 +1,9 @@
 # TODO
-# Finish tutorial, start pull request
+# Get framework for each app page setup (i.e. get blueprints working)
+# Load excel data into DB
+# Create exercise, workout classes that work with data in the DB
+
+# Finish tutorial, start pull request in git to merge with master / understand process
 
 
 import os
@@ -28,15 +32,13 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/')
-    def hello():
-        return 'Hello, World!'
-
     from . import db    # register db initialization function with the app
     db.init_app(app)
 
-    from . import auth
+    from views import auth
     app.register_blueprint(auth.bp)
+
+    from . import views
+    app.register_blueprint(views.bp)
 
     return app
