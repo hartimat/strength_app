@@ -30,11 +30,7 @@ def init_app():
     r.init_app(app)
 
     with app.app_context():
-        # Include routes
-        from . import routes
-
-        # Register blueprints
-        app.register_blueprint(auth.auth_bp)
-        app.register_blueprint(admin.admin_bp)
+        from . import routes    # import routes
+        db.create_all()     # create sql tables for data models
 
     return app
