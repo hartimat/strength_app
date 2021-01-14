@@ -1,12 +1,11 @@
 # TODO
-# Load excel data into DB, connect to application
-# Create exercise, workout classes that work with data in the DB
-# Create pages for the app (create exercises, create workouts, load past workouts, progress dashboard)
-# CSS / formatting (bootstrap?)
-# Create a new dev branch where pandas is used instead of sqlite
-# Pull request in git to understand the process
-# Basic version tagging, development branching work processes in Git
-# Dig into how to use python click library
+# Connect db, load excel data, display it on a page
+# Enter workout data via a form, save it in the db, then call it back up on another page
+# Add login / authentication
+# Add CSS / JS
+# Git pull request
+# Tag project history
+# CLI library in python
 
 
 from flask import Flask

@@ -4,18 +4,35 @@ from flask import current_app as app
 from .models import db, User
 
 
+@app.route('/home')
 @app.route('/')
 def home():
-    """Landing page."""
+    """Landing page"""
     return render_template("home.html",
-                           title="Demo home page",
-                           description="Description for the homepage"
+                           title="Homepage",
+                           description="This is the home page for the strength_app!  Select a page to begin."
+                           )
+
+
+@app.route('/log', methods=['GET', 'POST'])
+def log():
+    """Page where you enter a workout"""
+    date = request.args.get('date')
+    exercise = request.args.get('exercise')
+    sets = request.args.get('sets')
+    reps = request.args.get('reps')
+    weight = request.args.get('weight')
+    rest = request.args.get('rest')
+    notes = request.args.get('notes')
+    return render_template("log.html",
+                           title="Workout Logging Page",
+                           description="Enter a new workout, or modify an old one here."
                            )
 
 
 @app.route('/users', methods=['GET'])
-def user_records():
-    """Create a user via quesry string parameters"""
+def users():
+    """Create a user via query's string parameters"""
     username = request.args.get('user')
     email = request.args.get('email')
     if username and email:
@@ -36,9 +53,9 @@ def user_records():
         )   # create instance of user class
         db.session.add(new_user)    # add new user record to db
         db.session.commit()     # commit db changes
-        redirect(url_for('user_records'))
+        return '<h1>Something broke for user route</h1>'
     return render_template(
-        'users.jinja2',
+        "users.html",
         users=User.query.all(),
         title="Show Users"
     )
