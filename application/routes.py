@@ -4,7 +4,16 @@ from flask import current_app as app
 from .models import db, User
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
+def home():
+    """Landing page."""
+    return render_template("home.html",
+                           title="Demo home page",
+                           description="Description for the homepage"
+                           )
+
+
+@app.route('/users', methods=['GET'])
 def user_records():
     """Create a user via quesry string parameters"""
     username = request.args.get('user')
@@ -22,7 +31,7 @@ def user_records():
             email=email,
             created=dt.now(),
             bio="In west philadelphia born and raised, \
-                on the playgorund is where I spent most of my days",
+                on the playground is where I spent most of my days",
             admin=False
         )   # create instance of user class
         db.session.add(new_user)    # add new user record to db
