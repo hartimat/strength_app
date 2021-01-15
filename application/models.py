@@ -5,7 +5,7 @@ from . import db
 class User(db.Model):
     """Data model for user accounts"""
 
-    __tablename__ = 'flasksqlalchemy-tutorial-users'
+    __tablename__ = 'users'
     id = db.Column(
         db.Integer,
         primary_key=True
@@ -43,3 +43,58 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+class Exercise(db.Model):
+    """Data model for exercises"""
+
+    __tablename__ = 'exercises'
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+    date = db.Column(
+        db.DateTime,
+        index=False,
+        unique=False,
+        nullable=False
+    )
+    name = db.Column(
+        db.String(80),
+        index=False,
+        unique=False,
+        nullable=False
+    )
+    sets = db.Column(
+        db.Integer,
+        index=False,
+        unique=False,
+        nullable=True
+    )
+    reps = db.Column(
+        db.String(80),
+        index=False,
+        unique=False,
+        nullable=True
+    )
+    weight = db.Column(
+        db.Float,
+        index=False,
+        unique=False,
+        nullable=True
+    )
+    rest = db.Column(
+        db.Float,
+        index=False,
+        unique=False,
+        nullable=True
+    )
+    notes = db.Column(
+        db.Text,
+        index=False,
+        unique=False,
+        nullable=True
+    )
+
+    def __repr__(self):
+        return '<Exercise {}>'.format(self.name)

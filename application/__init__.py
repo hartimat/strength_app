@@ -1,6 +1,7 @@
 # TODO
-# Connect db, load excel data, display it on a page
-# Enter workout data via a form, save it in the db, then call it back up on another page
+# Refine loading of csv data into sqlite (rebuild each time app is launched?)
+# Display db data on screen
+# Enter and save exercise data in db from form on screen
 # Add login / authentication
 # Add CSS / JS
 # Git pull request
@@ -11,6 +12,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_redis import FlaskRedis
+import pandas as pd
 
 
 # Globally accessible libraries
@@ -31,5 +33,10 @@ def init_app():
     with app.app_context():
         from . import routes    # import routes
         db.create_all()     # create sql tables for data models
+
+    # Populate database
+    exercise_df = pd.read_csv('input_data.csv')
+    exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
+
 
     return app
