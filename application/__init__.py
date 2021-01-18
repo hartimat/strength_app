@@ -1,6 +1,4 @@
 # TODO
-# Refine loading of csv data into sqlite (rebuild each time app is launched?)
-# Display db data on screen
 # Enter and save exercise data in db from form on screen
 # Add login / authentication
 # Add CSS / JS
@@ -37,6 +35,7 @@ def init_app():
     # Populate database
     exercise_df = pd.read_csv('input_data.csv')
     exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
+
 
 
     return app

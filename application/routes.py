@@ -1,7 +1,9 @@
+import pandas as pd
 from flask import request, render_template, make_response, url_for, redirect
 from datetime import datetime as dt
 from flask import current_app as app
-from .models import db, User
+from .models import User, Exercise
+from . import db
 
 
 @app.route('/home')
@@ -17,16 +19,11 @@ def home():
 @app.route('/log', methods=['GET', 'POST'])
 def log():
     """Page where you enter a workout"""
-    date = request.args.get('date')
-    exercise = request.args.get('exercise')
-    sets = request.args.get('sets')
-    reps = request.args.get('reps')
-    weight = request.args.get('weight')
-    rest = request.args.get('rest')
-    notes = request.args.get('notes')
+    exercises = pd.read_sql('SELECT * FROM Exercise', db.get_engine(app=app)).to_dict()
     return render_template("log.html",
                            title="Workout Logging Page",
-                           description="Enter a new workout, or modify an old one here."
+                           description="Enter a new workout, or modify an old one here.",
+                           exercises=exercises
                            )
 
 
