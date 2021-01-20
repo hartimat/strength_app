@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <form method="POST" action="/progress">'
+        <div class="form-field">
+            {{ form.date.label }}
+            {{ form.date }}
+        </div><br>
+        <div class="form-field">
+            {{ form.name.label }}
+            {{ form.name }}
+        </div><br>
+        <div class="form-field">
+            {{ form.sets.label }}
+            {{ form.sets }}
+        </div><br>
+        <div class="form-field">
+            {{ form.reps.label }}
+            {{ form.reps }}
+        </div><br>
+        <div class="form-field">
+            {{ form.weight.label }}
+            {{ form.weight }}
+        </div><br>
+        <div class="form-field">
+            {{ form.rest.label }}
+            {{ form.rest }}
+        </div><br>
+        <div class="form-field">
+            {{ form.notes.label }}
+            {{ form.notes }}
+        </div><br>
+        <div class="form-field">
+            {{ form.submit }}
+        </div><br>
+    </form>
+</div>
+{% endblock %}

@@ -3,6 +3,7 @@ from flask import request, render_template, make_response, url_for, redirect
 from datetime import datetime as dt
 from flask import current_app as app
 from .models import User, Exercise
+from .forms import ExerciseForm
 from . import db
 
 
@@ -16,14 +17,27 @@ def home():
                            )
 
 
-@app.route('/log', methods=['GET', 'POST'])
-def log():
+@app.route('/workout', methods=['GET', 'POST'])
+def workout():
     """Page where you enter a workout"""
-    exercises = pd.read_sql('SELECT * FROM Exercise', db.get_engine(app=app)).to_dict()
-    return render_template("log.html",
-                           title="Workout Logging Page",
-                           description="Enter a new workout, or modify an old one here.",
-                           exercises=exercises
+    # TODO
+    # Get a wtform to receive data, save it to sqlite, then extract/display the data on a different page
+    # Repeat the process with a custom data input table
+    # Add function where you can use a past day's workout as a template...
+    form = ExerciseForm()
+    return render_template("workout.html",
+                           title="Enter Workout",
+                           description="Enter new workout data here",
+                           form=form
+                           )
+
+
+@app.route('/progress', methods=['GET', 'POST'])
+def progress():
+    """Page where you review workout progress"""
+    return render_template("progress.html",
+                           title="Workout Progress",
+                           description="Review workout progress here",
                            )
 
 

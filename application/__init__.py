@@ -1,7 +1,9 @@
 # TODO
-# Enter and save exercise data in db from form on screen
+# Add ability to enter workout, store it in db, and recall old workouts to display later
+# Add ability to enter/edit multiple workouts at a time
+# Build out nutrition web pages (mfp api)
 # Add login / authentication
-# Add CSS / JS
+# Add stylesheets
 # Git pull request
 # Tag project history
 # CLI library in python
@@ -35,7 +37,5 @@ def init_app():
     # Populate database
     exercise_df = pd.read_csv('input_data.csv')
     exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
-
-
 
     return app
