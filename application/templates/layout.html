@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>{{title}}</title>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <meta charset="UTF-8">
     <meta name="description" content={{description}}>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-
 <body>
     {% include 'navigation.html' %}
     {% block content %}{% endblock %}
 </body>
-
 </html>

@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container">
+<div class="header">
     <h1>{{ title }}</h1>
     <p>{{ description }}</p>
-    <form method="POST" action="/progress">'
+</div>
+<div class="form">
+    <form method="POST" action="/workout">'
         <div class="form-field">
             {{ form.date.label }}
             {{ form.date }}
@@ -36,6 +38,23 @@
         <div class="form-field">
             {{ form.submit }}
         </div><br>
+        <a href="#" id="submit_entry"><button class="btn btn-default">Submit Entry</button></a>
     </form>
+</div>
+<div class="table">
+    <table>
+        <tr>
+            {% for col in data.columns %}
+            <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+        {% for index, row in data.iterrows() %}
+            <tr>
+            {% for element in row %}
+                <td>{{ element }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}

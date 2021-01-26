@@ -1,6 +1,9 @@
 # TODO
-# Add ability to enter workout, store it in db, and recall old workouts to display later
-# Add ability to enter/edit multiple workouts at a time
+# Display workouts from db in a scrollable table
+# Use JQuery to make the table clickable / entries editable
+# Sort out how to
+# Add validation of form data
+# use g, teardown app context when requests are over
 # Build out nutrition web pages (mfp api)
 # Add login / authentication
 # Add stylesheets
@@ -34,7 +37,7 @@ def init_app():
         from . import routes    # import routes
         db.create_all()     # create sql tables for data models
 
-    # Populate database
+    # Populate database from input file upon every launch
     exercise_df = pd.read_csv('input_data.csv')
     exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
 

@@ -1,5 +1,5 @@
-import pandas as pd
-from flask import request, render_template, make_response, url_for, redirect
+import datetime, pandas
+from flask import request, render_template, make_response, url_for, redirect, flash
 from datetime import datetime as dt
 from flask import current_app as app
 from .models import User, Exercise
@@ -20,15 +20,29 @@ def home():
 @app.route('/workout', methods=['GET', 'POST'])
 def workout():
     """Page where you enter a workout"""
-    # TODO
-    # Get a wtform to receive data, save it to sqlite, then extract/display the data on a different page
-    # Repeat the process with a custom data input table
-    # Add function where you can use a past day's workout as a template...
+    title = "Enter Workout"
+    description = "Enter new workout data here"
     form = ExerciseForm()
+    df = pandas.read_sql_table("Exercise", db.engine)
+    if request.method == 'POST':
+        date = datetime.datetime.now()
+        name = request.form['name']
+        sets = request.form['sets']
+        reps = request.form['reps']
+        weight = request.form['weight']
+        rest = request.form['rest']
+        notes = request.form['notes']
+        record = Exercise(date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
+        db.session.add(record)
+        db.session.commit()
+        flash('New exercise successfully saved!')
+        return redirect('workout')
+
     return render_template("workout.html",
-                           title="Enter Workout",
-                           description="Enter new workout data here",
-                           form=form
+                           title=title,
+                           description=description,
+                           form=form,
+                           data=df
                            )
 
 

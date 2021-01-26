@@ -5,7 +5,7 @@ from . import db
 class User(db.Model):
     """Data model for user accounts"""
 
-    __tablename__ = 'users'
+    __tablename__ = 'User'
     id = db.Column(
         db.Integer,
         primary_key=True
@@ -48,13 +48,13 @@ class User(db.Model):
 class Exercise(db.Model):
     """Data model for exercises"""
 
-    __tablename__ = 'exercises'
+    __tablename__ = 'Exercise'
     id = db.Column(
         db.Integer,
         primary_key=True
     )
     date = db.Column(
-        db.DateTime,
+        db.String,
         index=False,
         unique=False,
         nullable=False
