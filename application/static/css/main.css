@@ -1,0 +1,14 @@
+table {
+    border-collapse: collapse;
+    background-color: #f5f5f5;
+    height: 300px;
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 0.5rem;
+    text-align: left;
+}

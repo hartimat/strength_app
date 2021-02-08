@@ -20,29 +20,33 @@ def home():
 @app.route('/workout', methods=['GET', 'POST'])
 def workout():
     """Page where you enter a workout"""
-    title = "Enter Workout"
-    description = "Enter new workout data here"
+    title = "Workout Log"
+    description = "Enter and edit exercise data here"
     form = ExerciseForm()
     df = pandas.read_sql_table("Exercise", db.engine)
     if request.method == 'POST':
-        date = datetime.datetime.now()
-        name = request.form['name']
-        sets = request.form['sets']
-        reps = request.form['reps']
-        weight = request.form['weight']
-        rest = request.form['rest']
-        notes = request.form['notes']
-        record = Exercise(date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
-        db.session.add(record)
-        db.session.commit()
-        flash('New exercise successfully saved!')
+        # date = datetime.datetime.now()
+        # name = request.form['name']
+        # sets = request.form['sets']
+        # reps = request.form['reps']
+        # weight = request.form['weight']
+        # rest = request.form['rest']
+        # notes = request.form['notes']
+        # record = Exercise(date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
+        # db.session.add(record)
+        # db.session.commit()
+        rows = rows
+
         return redirect('workout')
 
+    print(df)
     return render_template("workout.html",
                            title=title,
                            description=description,
                            form=form,
-                           data=df
+                           columns=df.columns,
+                           rows=df.iterrows(),
+                           dataframe=df
                            )
 
 

@@ -1,7 +1,9 @@
 # TODO
-# Display workouts from db in a scrollable table
-# Use JQuery to make the table clickable / entries editable
-# Sort out how to
+# Make table entries editable (https://codewithmark.com/easily-edit-html-table-rows-or-cells-with-jquery)
+# Add table filtering
+# Add css to table
+# Add new entries to table (through form, or table line?)
+# Develop plan for backing up csv file
 # Add validation of form data
 # use g, teardown app context when requests are over
 # Build out nutrition web pages (mfp api)

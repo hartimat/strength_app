@@ -6,7 +6,8 @@
     <p>{{ description }}</p>
 </div>
 <div class="form">
-    <form method="POST" action="/workout">'
+    <form method="POST" action="/workout">
+        <h3>Enter New Exercise</h3>
         <div class="form-field">
             {{ form.date.label }}
             {{ form.date }}
@@ -38,23 +39,31 @@
         <div class="form-field">
             {{ form.submit }}
         </div><br>
-        <a href="#" id="submit_entry"><button class="btn btn-default">Submit Entry</button></a>
-    </form>
+    </form><br>
 </div>
-<div class="table">
-    <table>
-        <tr>
-            {% for col in data.columns %}
-            <th>{{ col }}</th>
-            {% endfor %}
-        </tr>
-        {% for index, row in data.iterrows() %}
+<div>
+    <table class="table">
+        <thead>
             <tr>
-            {% for element in row %}
-                <td>{{ element }}</td>
-            {% endfor %}
+                {% for col in columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+                <th>options</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for index, row in rows %}
+            <tr row_id="{{ row['index'] }}">
+                {% for element in row %}
+                <td><div class="row-data" edit_type="click" col_name="{{ columns[loop.index-1] }}" id="{{ row['index'] }}_{{ loop.index }}">{{ element }}</div></td>
+                {% endfor %}
+                <td><span class="btn-edit"><a href="#" class="btn btn-link" row_id="{{ row['index'] }}">Edit</a></span>
+                <span class="btn-save"><a href="#" class="btn btn-link" row_id="{{ row['index'] }}">Save</a></span>
+                <span class="btn-cancel"><a href="#" class="btn btn-link" row_id="{{ row['index'] }}">Cancel</a></span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+    <script src="static/js/workout.js"></script>
 </div>
 {% endblock %}
