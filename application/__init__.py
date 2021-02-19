@@ -1,17 +1,19 @@
-# TODO
-# Make table entries editable (https://codewithmark.com/easily-edit-html-table-rows-or-cells-with-jquery)
+# TODO BACKLOG
+# Make table entries editable/savable (https://codewithmark.com/easily-edit-html-table-rows-or-cells-with-jquery)
+# Make an "add exercise" button (with flash messages)
+# Nutrition (my fitness pal API)
+# Fitbit (steps, sleep data API)
 # Add table filtering
-# Add css to table
-# Add new entries to table (through form, or table line?)
 # Develop plan for backing up csv file
-# Add validation of form data
 # use g, teardown app context when requests are over
-# Build out nutrition web pages (mfp api)
+# Add visualization functionality
+# Add data validation
 # Add login / authentication
-# Add stylesheets
+# CSS overhaul
 # Git pull request
 # Tag project history
 # CLI library in python
+# Turn into official package
 
 
 from flask import Flask
@@ -39,7 +41,7 @@ def init_app():
         from . import routes    # import routes
         db.create_all()     # create sql tables for data models
 
-    # Populate database from input file upon every launch
+    # Create exercise table from input file upon every launch
     exercise_df = pd.read_csv('input_data.csv')
     exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
 

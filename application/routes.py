@@ -1,5 +1,7 @@
-import datetime, pandas
-from flask import request, render_template, make_response, url_for, redirect, flash
+import pandas
+import json
+from flask import request, render_template, make_response, url_for, redirect, flash, g
+from sqlalchemy import MetaData, Table
 from datetime import datetime as dt
 from flask import current_app as app
 from .models import User, Exercise
@@ -25,6 +27,16 @@ def workout():
     form = ExerciseForm()
     df = pandas.read_sql_table("Exercise", db.engine)
     if request.method == 'POST':
+        jsonData = request.get_json()
+        updated_exercise = Exercise(int(float(jsonData['index'])), str(jsonData['date']), str(jsonData['name']), int(jsonData['sets']), str(jsonData['reps']), float(jsonData['weight']), float(jsonData['rest']), str(jsonData['notes']))
+        db.session.add(updated_exercise)
+        db.session.commit()
+        # connect to Exercise table
+        # query the table for the record whose index matches
+        # update the values in the record based on ajax data
+        # commit / save the changes to the db table
+        # return to the workout webpage (check that changed data persists on reload)
+        # FIXME: handle form submission vs table submission
         # date = datetime.datetime.now()
         # name = request.form['name']
         # sets = request.form['sets']
@@ -35,24 +47,22 @@ def workout():
         # record = Exercise(date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
         # db.session.add(record)
         # db.session.commit()
-        rows = rows
 
-        return redirect('workout')
+        return redirect(url_for('workout'))
 
-    print(df)
     return render_template("workout.html",
                            title=title,
                            description=description,
                            form=form,
                            columns=df.columns,
-                           rows=df.iterrows(),
-                           dataframe=df
+                           rows=df.iterrows()
                            )
 
 
 @app.route('/progress', methods=['GET', 'POST'])
 def progress():
     """Page where you review workout progress"""
+    print('were in the progress route')
     return render_template("progress.html",
                            title="Workout Progress",
                            description="Review workout progress here",

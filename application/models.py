@@ -49,7 +49,7 @@ class Exercise(db.Model):
     """Data model for exercises"""
 
     __tablename__ = 'Exercise'
-    id = db.Column(
+    index = db.Column(
         db.Integer,
         primary_key=True
     )
@@ -98,3 +98,13 @@ class Exercise(db.Model):
 
     def __repr__(self):
         return '<Exercise {}>'.format(self.name)
+
+    def __init__(self, id, date, name, sets, reps, weight, rest, notes):
+        self.id = id
+        self.date = date
+        self.name = name
+        self.sets = sets
+        self.reps = reps
+        self.weight = weight
+        self.rest = rest
+        self.notes = notes

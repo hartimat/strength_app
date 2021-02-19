@@ -72,6 +72,11 @@ $(document).on('click', '.btn-save', function(event)
         arr[col_name] = col_val;
     });
 
-    console.log(arr);
-
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        url: '/workout',
+        dataType: 'json',
+        data: JSON.stringify(arr),
+    });
 });
