@@ -13,17 +13,44 @@ from . import db
 @app.route('/')
 def home():
     """Landing page"""
+    title = "Homepage"
+    df = pandas.read_sql_table("Exercise", db.engine)
+    form = ExerciseForm()
+
     return render_template("home.html",
-                           title="Homepage",
-                           description="This is the home page for the strength_app!  Select a page to begin."
+                           title=title,
+                           columns=df.columns,
+                           rows=df.iterrows(),
+                           form=form
                            )
+
+
+@app.route('/insert', methods=['POST'])
+def insert():
+    if request.method == 'POST':
+        id = Exercise.query.order_by(Exercise.id.desc())
+        id = id.first() + 1
+        date = request.form['date']
+        name = request.form['name']
+        sets = request.form['sets']
+        reps = request.form['reps']
+        weight = request.form['weight']
+        rest = request.form['rest']
+        notes = request.form['notes']
+        record = Exercise(id=id, date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
+
+        db.session.add(record)
+        db.session.commit()
+
+        flash("New Exercise Successfully Added")
+
+        return redirect(url_for('home'))
 
 
 @app.route('/workout', methods=['GET', 'POST'])
 def workout():
     """Page where you enter a workout"""
     title = "Workout Log"
-    description = "Enter and edit exercise data here"
     form = ExerciseForm()
     df = pandas.read_sql_table("Exercise", db.engine)
     if request.method == 'POST':
@@ -31,7 +58,6 @@ def workout():
         updated_exercise = Exercise(int(float(jsonData['index'])), str(jsonData['date']), str(jsonData['name']), int(jsonData['sets']), str(jsonData['reps']), float(jsonData['weight']), float(jsonData['rest']), str(jsonData['notes']))
         db.session.add(updated_exercise)
         db.session.commit()
-        # connect to Exercise table
         # query the table for the record whose index matches
         # update the values in the record based on ajax data
         # commit / save the changes to the db table

@@ -49,7 +49,7 @@ class Exercise(db.Model):
     """Data model for exercises"""
 
     __tablename__ = 'Exercise'
-    index = db.Column(
+    id = db.Column(
         db.Integer,
         primary_key=True
     )

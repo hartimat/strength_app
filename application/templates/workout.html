@@ -1,6 +1,6 @@
-{% extends "layout.html" %}
-
-{% block content %}
+{% extends "base.html" %}
+{% block header %}{% endblock %}
+{% block body %}
 <div class="header">
     <h1>{{ title }}</h1>
     <p>{{ description }}</p>
@@ -40,6 +40,14 @@
             {{ form.submit }}
         </div><br>
     </form><br>
+</div>
+<div class="jumbotron p-3">
+    <div class="well text-center">
+        <python
+    </div>
+</div>
+<div class="container">
+    <h2>Manage Workout Data <button type="button" class="btn btn-success">Manage</button></h2>
 </div>
 <div>
     <table class="table">
