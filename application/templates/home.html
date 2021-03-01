@@ -31,7 +31,7 @@
 
                 <table class="table table-hover table-dark">
                     <tr>
-                        <th>Index</th>
+                        <th>Id</th>
                         <th>Date</th>
                         <th>Name</th>
                         <th>Sets</th>
@@ -41,15 +41,20 @@
                         <th>Notes</th>
                         <th>Action</th>
                     </tr>
-                    {% for index, row in rows %}
-                            <tr row_id="{{ row['index'] }}">
-                            {% for element in row %}
-                                <td><div class="row-data" edit_type="click" col_name="{{ columns[loop.index-1] }}" id="{{ row['index'] }}_{{ loop.index }}">{{ element }}</div></td>
-                            {% endfor %}
-                                <td><a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal">Edit</a></td>
-                                <td><a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this exercise?')">Delete</a></td>
-            </tr>
-            {% endfor %}
+                    {% for index, series in rows %}
+                        <tr row_id=index>
+                            <td><div class="row-data" edit_type="click" col_name="Index" id="{{ index }}_id">{{ series['id'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Date" id="{{ index }}_date">{{ series['date'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Name" id="{{ index }}_name">{{ series['name'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Sets" id="{{ index }}_sets">{{ series['sets'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Reps" id="{{ index }}_reps">{{ series['reps'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Weight" id="{{ index }}_weight">{{ series['weight'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Rest" id="{{ index }}_rest">{{ series['rest'] }}</div></td>
+                            <td><div class="row-data" edit_type="click" col_name="Notes" id="{{ index }}_notes">{{ series['notes'] }}</div></td>
+                            <td><a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal">Edit</a></td>
+                            <td><a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this exercise?')">Delete</a></td>
+                        </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import pandas
 import json
-from flask import request, render_template, make_response, url_for, redirect, flash, g
+from flask import request, render_template, make_response, url_for, redirect, flash
 from sqlalchemy import MetaData, Table
 from datetime import datetime as dt
 from flask import current_app as app
@@ -28,8 +28,7 @@ def home():
 @app.route('/insert', methods=['POST'])
 def insert():
     if request.method == 'POST':
-        id = Exercise.query.order_by(Exercise.id.desc())
-        id = id.first() + 1
+        id = Exercise.query.order_by(Exercise.id.desc()).first().id + 1
         date = request.form['date']
         name = request.form['name']
         sets = request.form['sets']

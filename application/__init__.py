@@ -1,11 +1,12 @@
 # TODO BACKLOG
 # https://www.youtube.com/watch?v=XTpLbBJTOM4
 #       save added records between app launches (currently having trouble with Exercise.id being recognized...)
-#       properly track / update the id numbers
-# Complete add, edit, delete modals and connect with database
-# Nutrition (my fitness pal API)
-# Fitbit (steps, sleep data API)
-# Convert homepage have links to strength, baseline, nutrition pages
+# Complete add exercise
+# Complete delete exercise
+# Complete edit exercise
+# Nutrition table (my fitness pal API)
+# Fitbit table(steps, sleep data API)
+# Navigation bar
 # Add table filtering
 # Develop plan for backing up csv file
 # use g, teardown app context when requests are over
