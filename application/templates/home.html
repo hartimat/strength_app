@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Homepage {% endblock%}
+{% block title %} Strength App Home {% endblock%}
 {% block header %}
 <div class="jumbotron p-3">
     <div class="well text-center">
@@ -52,7 +52,7 @@
                             <td><div class="row-data" edit_type="click" col_name="Rest" id="{{ index }}_rest">{{ series['rest'] }}</div></td>
                             <td><div class="row-data" edit_type="click" col_name="Notes" id="{{ index }}_notes">{{ series['notes'] }}</div></td>
                             <td><a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal">Edit</a></td>
-                            <td><a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this exercise?')">Delete</a></td>
+                            <td><a href="{{url_for('delete', row_id=index)}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this exercise?')">Delete</a></td>
                         </tr>
                     {% endfor %}
                 </table>

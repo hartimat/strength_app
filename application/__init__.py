@@ -1,14 +1,11 @@
 # TODO BACKLOG
 # https://www.youtube.com/watch?v=XTpLbBJTOM4
-#       save added records between app launches (currently having trouble with Exercise.id being recognized...)
-# Complete add exercise
-# Complete delete exercise
 # Complete edit exercise
 # Nutrition table (my fitness pal API)
 # Fitbit table(steps, sleep data API)
 # Navigation bar
 # Add table filtering
-# Develop plan for backing up csv file
+# Backup scheme for db file... github? export csv?
 # use g, teardown app context when requests are over
 # Add visualization functionality
 # Add data validation
@@ -17,11 +14,13 @@
 # Tag project history
 # CLI library in python
 # Turn into official package
+# Add unit / system testing package
 
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_redis import FlaskRedis
+from pathlib2 import Path
 import pandas as pd
 
 
@@ -44,8 +43,15 @@ def init_app():
         from . import routes    # import routes
         db.create_all()     # create sql tables for data models
 
-    # Create exercise table from input file upon every launch
-    exercise_df = pd.read_csv('input_data.csv')
-    exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
+    # Create exercise table from input file if no db exists
+
+    try:
+        db_file = Path('/application/site.db')
+        if db_file.exists():
+            pass
+    except:
+        print("Creating db from input csv file")
+        exercise_df = pd.read_csv('input_data.csv')
+        exercise_df.to_sql('Exercise', db.get_engine(app=app), if_exists='replace')
 
     return app

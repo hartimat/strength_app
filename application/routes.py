@@ -1,5 +1,4 @@
 import pandas
-import json
 from flask import request, render_template, make_response, url_for, redirect, flash
 from sqlalchemy import MetaData, Table
 from datetime import datetime as dt
@@ -28,70 +27,29 @@ def home():
 @app.route('/insert', methods=['POST'])
 def insert():
     if request.method == 'POST':
-        id = Exercise.query.order_by(Exercise.id.desc()).first().id + 1
-        date = request.form['date']
-        name = request.form['name']
-        sets = request.form['sets']
-        reps = request.form['reps']
-        weight = request.form['weight']
-        rest = request.form['rest']
-        notes = request.form['notes']
-        record = Exercise(id=id, date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
-
+        record = Exercise(id=Exercise.query.order_by(Exercise.id.desc()).first().id + 1,
+                          date=request.form['date'],
+                          name=request.form['name'],
+                          sets=request.form['sets'],
+                          reps=request.form['reps'],
+                          weight=request.form['weight'],
+                          rest=request.form['rest'],
+                          notes=request.form['notes'])
         db.session.add(record)
         db.session.commit()
-
-        flash("New Exercise Successfully Added")
-
+        flash('New Exercise Successfully Added')
         return redirect(url_for('home'))
 
 
-@app.route('/workout', methods=['GET', 'POST'])
-def workout():
-    """Page where you enter a workout"""
-    title = "Workout Log"
-    form = ExerciseForm()
-    df = pandas.read_sql_table("Exercise", db.engine)
-    if request.method == 'POST':
-        jsonData = request.get_json()
-        updated_exercise = Exercise(int(float(jsonData['index'])), str(jsonData['date']), str(jsonData['name']), int(jsonData['sets']), str(jsonData['reps']), float(jsonData['weight']), float(jsonData['rest']), str(jsonData['notes']))
-        db.session.add(updated_exercise)
+@app.route('/delete/<row_id>', methods=['GET'])
+def delete(row_id):
+    if request.method == 'GET':
+        row_id = str(int(row_id) + 1)
+        record = Exercise.query.get(row_id)
+        db.session.delete(record)
         db.session.commit()
-        # query the table for the record whose index matches
-        # update the values in the record based on ajax data
-        # commit / save the changes to the db table
-        # return to the workout webpage (check that changed data persists on reload)
-        # FIXME: handle form submission vs table submission
-        # date = datetime.datetime.now()
-        # name = request.form['name']
-        # sets = request.form['sets']
-        # reps = request.form['reps']
-        # weight = request.form['weight']
-        # rest = request.form['rest']
-        # notes = request.form['notes']
-        # record = Exercise(date=date, name=name, sets=sets, reps=reps, weight=weight, rest=rest, notes=notes)
-        # db.session.add(record)
-        # db.session.commit()
-
-        return redirect(url_for('workout'))
-
-    return render_template("workout.html",
-                           title=title,
-                           description=description,
-                           form=form,
-                           columns=df.columns,
-                           rows=df.iterrows()
-                           )
-
-
-@app.route('/progress', methods=['GET', 'POST'])
-def progress():
-    """Page where you review workout progress"""
-    print('were in the progress route')
-    return render_template("progress.html",
-                           title="Workout Progress",
-                           description="Review workout progress here",
-                           )
+        flash('Exercise Successfully Deleted')
+        return redirect(url_for('home'))
 
 
 @app.route('/users', methods=['GET'])
