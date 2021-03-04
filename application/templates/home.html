@@ -42,7 +42,7 @@
                         <th>Action</th>
                     </tr>
                     {% for index, series in rows %}
-                        <tr row_id=index>
+                        <tr row_id="{{ series['id'] }}">
                             <td><div class="row-data" edit_type="click" col_name="Index" id="{{ index }}_id">{{ series['id'] }}</div></td>
                             <td><div class="row-data" edit_type="click" col_name="Date" id="{{ index }}_date">{{ series['date'] }}</div></td>
                             <td><div class="row-data" edit_type="click" col_name="Name" id="{{ index }}_name">{{ series['name'] }}</div></td>
@@ -51,15 +51,48 @@
                             <td><div class="row-data" edit_type="click" col_name="Weight" id="{{ index }}_weight">{{ series['weight'] }}</div></td>
                             <td><div class="row-data" edit_type="click" col_name="Rest" id="{{ index }}_rest">{{ series['rest'] }}</div></td>
                             <td><div class="row-data" edit_type="click" col_name="Notes" id="{{ index }}_notes">{{ series['notes'] }}</div></td>
-                            <td><a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal">Edit</a></td>
-                            <td><a href="{{url_for('delete', row_id=index)}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this exercise?')">Delete</a></td>
+                            <td><a href="{{ url_for('update', row_id=series['id']) }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal{{ series['id'] }}">Edit</a></td>
+                            <td><a href="{{ url_for('delete', row_id=series['id']) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this exercise?')">Delete</a></td>
                         </tr>
-                    {% endfor %}
-                </table>
+
+<!--Modal: Edit Row-->
+<div id="editModal{{ series['id'] }}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Exercise</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('update', row_id=series['id']) }}" method="POST">
+                    <div class="form-group">
+                        <label>{{ form.date.label }}</label>
+                        <input type="text" class="form-control" name="date" required="1" value="{{ series['date'] }}">
+                        <label>{{ form.name.label }}</label>
+                        <input type="text" class="form-control" name="name" required="1" value="{{ series['name'] }}">
+                        <label>{{ form.sets.label }}</label>
+                        <input type="text" class="form-control" name="sets" required="1" value="{{ series['sets'] }}">
+                        <label>{{ form.reps.label }}</label>
+                        <input type="text" class="form-control" name="reps" required="1" value="{{ series['reps'] }}">
+                        <label>{{ form.weight.label }}</label>
+                        <input type="text" class="form-control" name="weight" required="1" value="{{ series['weight'] }}">
+                        <label>{{ form.rest.label }}</label>
+                        <input type="text" class="form-control" name="rest" required="1" value="{{ series['rest'] }}">
+                        <label>{{ form.notes.label }}</label>
+                        <input type="text" class="form-control" name="notes" required="1" value="{{ series['notes'] }}">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Submit Changes</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
     </div>
 </div>
+                    {% endfor %}
+                </table>
+            </div>
 
 <!--Modal: Add New Exercise-->
 <div id="addModal" class="modal fade" role="dialog">
@@ -98,38 +131,6 @@
     </div>
 </div>
 
-<!--Modal: Edit Row-->
-<div id="editModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Exercise</h4>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST">
-                    <div class="form-group">
-                        <label>{{ form.date.label }}</label>
-                        <input type="text" class="form-control" name="date" required="1">
-                        <label>{{ form.name.label }}</label>
-                        <input type="text" class="form-control" name="name" required="1">
-                        <label>{{ form.sets.label }}</label>
-                        <input type="text" class="form-control" name="sets" required="1">
-                        <label>{{ form.reps.label }}</label>
-                        <input type="text" class="form-control" name="reps" required="1">
-                        <label>{{ form.weight.label }}</label>
-                        <input type="text" class="form-control" name="weight" required="1">
-                        <label>{{ form.rest.label }}</label>
-                        <input type="text" class="form-control" name="rest" required="1">
-                        <label>{{ form.notes.label }}</label>
-                        <input type="text" class="form-control" name="notes" required="1">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Submit Changes</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-            </div>
         </div>
     </div>
 </div>

@@ -1,8 +1,7 @@
 # TODO BACKLOG
 # https://www.youtube.com/watch?v=XTpLbBJTOM4
-# Complete edit exercise
-# Nutrition table (my fitness pal API)
-# Fitbit table(steps, sleep data API)
+# Nutrition table (my fitness pal API), water, calories, macros
+# Fitbit table(steps, sleep data API, weight)
 # Navigation bar
 # Add table filtering
 # Backup scheme for db file... github? export csv?
